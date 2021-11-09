@@ -1,13 +1,314 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;500;700&family=Roboto&display=swap");
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  background: rgb(166, 166, 166);
+  background: linear-gradient(
+    0deg,
+    rgba(166, 166, 166, 1) 0%,
+    rgba(207, 207, 207, 1) 50%,
+    rgba(228, 229, 233, 1) 100%
+  );
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  display: flex;
+  gap: 10px;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.card {
+  position: relative;
+  width: 360px;
+  min-height: 450px;
+  border: 1px solid #000;
+  border-radius: 7px;
+  text-align: center;
+  background-color: #fdfdfd;
+  z-index: -1;
+  background: #fdfdfd
+    url(https://64.media.tumblr.com/7b29de5faa9fb2d5905344e91f57f27e/tumblr_plp9ysx19Z1tdqkuno1_1280.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.card header .border {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: red;
+  -webkit-mask-box-image: url("http://i.imgur.com/9Xo9L4Z.png");
+}
+
+.card header {
+  width: 100%;
+  height: 270px;
+  /* background-image: url(https://i.pinimg.com/736x/7f/32/76/7f327684a0acf2520d1170381b3fc986.jpg); */
+  background-size: cover;
+  background-position: 0 -20px;
+  background-repeat: no-repeat;
+  mask-image: url(https://upload.wikimedia.org/wikipedia/commons/3/3c/Black_triangle.svg);
+  mask-size: 120%;
+  mask-repeat: no-repeat;
+  mask-position: center -100px;
+  z-index: 10;
+}
+
+h1,
+h3 {
+  margin: 0;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.sub-title {
+  font-size: 10px;
+  color: #fff;
+  letter-spacing: 3px;
+  font-weight: 200;
+}
+
+.stats-container {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats {
+  display: flex;
+  padding: 0 10px;
+}
+
+.stats div:first-child {
+  text-align: left;
+}
+
+.stats div {
+  flex: 1;
+}
+
+.stats.darker .stat {
+  background-color: #0f325a;
+}
+
+.stats.darkest .stat {
+  background-color: #0b1222;
+}
+
+.stat {
+  position: relative;
+  font-size: 1.2rem;
+  z-index: -1;
+  background-color: #3666b2;
+  text-indent: 50px;
+}
+
+.stat-value {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 700;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #3666b2;
+  z-index: 100;
+}
+
+.stat-characteristic {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.stat-icon {
+  position: absolute;
+  fill: #e6b57b;
+  stroke: #3666b2;
+  stroke-width: 1;
+  top: -11px;
+  left: 0;
+}
+
+.stat.m .stat-icon {
+  stroke-width: 20;
+}
+
+.stat.apl {
+  text-indent: 100px;
+}
+
+.stat.apl .stat-icon {
+  top: -3px;
+  right: 0;
+  left: auto;
+}
+
+.stat.apl .stat-value {
+  left: -25px;
+}
+
+.stat.df {
+  text-indent: 55px;
+}
+
+.stat.df .stat-icon {
+  top: -3px;
+  left: 10px;
+}
+
+.stat.df .stat-value {
+  left: 30px;
+}
+
+.stat.ga {
+  text-indent: 85px;
+}
+
+.stat.ga .stat-icon {
+  top: -3px;
+  right: 15px;
+  left: auto;
+}
+
+.stat.ga .stat-value {
+  left: -25px;
+}
+
+.stat.sv {
+  text-indent: 75px;
+}
+
+.stat.sv .stat-value {
+  left: 30px;
+}
+
+.stat.sv .stat-icon {
+  top: -3px;
+  left: 20px;
+}
+
+.stat.w {
+  text-indent: 60px;
+}
+
+.stat.w .stat-value {
+  left: 25px;
+}
+
+.stat.w .stat-icon {
+  top: -3px;
+  right: 20px;
+  left: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid #ccc;
+}
+
+th,
+td {
+  padding: 4px;
+}
+
+.weapons {
+  padding: 1rem 0;
+  color: #fff;
+}
+
+.weapons table {
+  width: 100%;
+  font-size: 12px;
+}
+
+.weapons th {
+  border: none;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+  background-color: #e6b57b;
+}
+
+.weapons th:last-child,
+.weapons td:last-child {
+  border-right: none;
+}
+
+.weapons tbody {
+  color: #000;
+  font-weight: 500;
+  font-size: 10px;
+}
+
+.weapons td {
+  border-right: 2px solid #000;
+  padding: 1px 0;
+}
+
+.abilities {
+  display: flex;
+}
+
+.ability {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.ability .title {
+  position: relative;
+  background-color: #2b5ba7;
+  margin-right: 15px;
+  margin-left: 15px;
+  line-height: 30px;
+  font-size: 10px;
+  color: #fff;
+}
+
+.ability .title:after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 15px solid #2b5ba7;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  transform: rotate(180deg);
+}
+
+.ability .title:before {
+  content: "";
+  position: absolute;
+  right: -15px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 15px solid #2b5ba7;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+
+.ability p {
+  text-transform: none;
+  font-weight: 200;
+  font-size: 10px;
+  padding: 0.5rem;
+  margin: 0;
 }
