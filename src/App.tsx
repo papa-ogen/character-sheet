@@ -3,6 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import FactionSelector from "./components/FactionSelector";
 import KillTeamSelector from "./components/KillTeamSelector";
 import KillTeamDescription from "./components/KillTeamDescription";
@@ -36,17 +37,18 @@ function App() {
   return (
     <Container component="main">
       <CssBaseline />
+      <Typography component="h1" variant="h5">
+        Kill Team
+      </Typography>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 1,
+          padding: 2,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
+          borderBottom: "1px solid red",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Kill Team
-        </Typography>
         <FactionSelector
           factions={factions}
           faction={faction}
@@ -63,47 +65,67 @@ function App() {
       {/* {killTeam && <KillTeamDescription descr={killTeam.killteamcomp} />} */}
       {killTeam && (
         <div>
-          <h3>Fire Team</h3>
-          <button
-            onClick={() => displayPreview(operatives)}
-            disabled={!fireTeam || !operatives.length}
+          <Box
+            sx={{
+              marginTop: 1,
+              padding: 2,
+              display: "flex",
+              flexDirection: "column",
+              borderBottom: "1px solid red",
+            }}
           >
-            Preiew
-          </button>
-          <FireTeamSelector
-            index={1}
-            killTeam={killTeam}
-            fireTeam={fireTeam}
-            setFireTeam={setFireTeam}
-          />
-          {/* {fireTeam && <KillTeamDescription descr={fireTeam.fireteamcomp} />} */}
-          {fireTeam && (
-            <Operatives
+            <h3>Fire Team</h3>
+            <Button
+              onClick={() => displayPreview(operatives)}
+              disabled={!fireTeam || !operatives.length}
+            >
+              Preiew
+            </Button>
+            <FireTeamSelector
+              index={1}
+              killTeam={killTeam}
               fireTeam={fireTeam}
-              operatives={operatives}
-              setOperatives={setOperatives}
+              setFireTeam={setFireTeam}
             />
-          )}
-          <h3>Fire Team</h3>
-          <button
-            onClick={() => displayPreview(operatives2)}
-            disabled={!fireTeam2 || !operatives2.length}
+            {/* {fireTeam && <KillTeamDescription descr={fireTeam.fireteamcomp} />} */}
+            {fireTeam && (
+              <Operatives
+                fireTeam={fireTeam}
+                operatives={operatives}
+                setOperatives={setOperatives}
+              />
+            )}
+          </Box>
+          <Box
+            sx={{
+              marginTop: 1,
+              padding: 2,
+              display: "flex",
+              flexDirection: "column",
+              borderBottom: "1px solid red",
+            }}
           >
-            Preiew
-          </button>
-          <FireTeamSelector
-            index={2}
-            killTeam={killTeam}
-            fireTeam={fireTeam2}
-            setFireTeam={setFireTeam2}
-          />
-          {fireTeam && (
-            <Operatives
-              fireTeam={fireTeam}
-              operatives={operatives2}
-              setOperatives={setOperatives2}
+            <h3>Fire Team</h3>
+            <Button
+              onClick={() => displayPreview(operatives2)}
+              disabled={!fireTeam2 || !operatives2.length}
+            >
+              Preiew
+            </Button>
+            <FireTeamSelector
+              index={2}
+              killTeam={killTeam}
+              fireTeam={fireTeam2}
+              setFireTeam={setFireTeam2}
             />
-          )}
+            {fireTeam && (
+              <Operatives
+                fireTeam={fireTeam}
+                operatives={operatives2}
+                setOperatives={setOperatives2}
+              />
+            )}
+          </Box>
           {/* {fireTeam2 && <KillTeamDescription descr={fireTeam2.fireteamcomp} />} */}
         </div>
       )}
