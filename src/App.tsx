@@ -1,136 +1,115 @@
 import React from "react";
-import "./App.css";
-import { AiOutlineRotateLeft } from "react-icons/ai";
-import { BsFillLightningChargeFill, BsFillShieldFill } from "react-icons/bs";
-import { ImCogs } from "react-icons/im";
-import { IoMedkitSharp } from "react-icons/io5";
-import { GiCrestedHelmet } from "react-icons/gi";
-import characters from "./__mocks__/characters";
-import type { AbilityType, UnitType, WeaponType } from "./types";
-
-const Abilities = ({ abilities }: { abilities: AbilityType[] }) => {
-  const abilitiesMarkup = abilities.map(({ name, descr }, index) => {
-    return (
-      <div className="ability">
-        <h3 className="title">{name}</h3>
-        {descr && <p>{descr}</p>}
-      </div>
-    );
-  });
-
-  return <div className="abilities">{abilitiesMarkup}</div>;
-};
-
-const Weapons = ({ weapons }: { weapons: WeaponType[] }) => {
-  const weaponsMarkup = weapons.map(({ name, a, bsws, d, sr, i }, index) => {
-    return (
-      <tr key={index}>
-        <td>{name}</td>
-        <td>{a}</td>
-        <td>{bsws}+</td>
-        <td>{d}</td>
-        <td>{sr}</td>
-        <td>{i}</td>
-      </tr>
-    );
-  });
-
-  return (
-    <div className="weapons">
-      <table>
-        <tr>
-          <th>Weapon Name</th>
-          <th>A</th>
-          <th>BS/WS</th>
-          <th>D</th>
-          <th>SR</th>
-          <th>!</th>
-        </tr>
-        <tbody>{weaponsMarkup}</tbody>
-      </table>
-    </div>
-  );
-};
-
-const Card = ({ unit }: { unit: UnitType }) => {
-  const {
-    name,
-    type,
-    stats: { m, apl, df, ga, sv, w },
-    weapons,
-    abilities,
-    image,
-  } = unit;
-  return (
-    <div className="card">
-      <header style={{ backgroundImage: `url(${image})` }}>
-        <h1 className="title">{name}</h1>
-        <h3 className="sub-title">{type}</h3>
-      </header>
-      <main>
-        <div className="stats-container">
-          <div className="stats" style={{ height: "75px" }}></div>
-          <div className="stats">
-            <div>
-              <div className="stat m">
-                <AiOutlineRotateLeft className="stat-icon" size={50} />
-                <span className="stat-characteristic">M</span>
-                <span className="stat-value">{m}</span>
-              </div>
-            </div>
-            <div>
-              <div className="stat apl">
-                <span className="stat-value">{apl}</span>
-                <span className="stat-characteristic">APL</span>
-                <BsFillLightningChargeFill className="stat-icon" size={40} />
-              </div>
-            </div>
-          </div>
-          <div className="stats darker">
-            <div>
-              <div className="stat df">
-                <BsFillShieldFill className="stat-icon" size={40} />
-                <span className="stat-characteristic">DF</span>
-                <span className="stat-value">{df}</span>
-              </div>
-            </div>
-            <div>
-              <div className="stat ga">
-                <span className="stat-value">{ga}</span>
-                <span className="stat-characteristic">GA</span>
-                <ImCogs className="stat-icon" size={40} />
-              </div>
-            </div>
-          </div>
-          <div className="stats darkest">
-            <div>
-              <div className="stat sv">
-                <IoMedkitSharp className="stat-icon" size={40} />
-                <span className="stat-characteristic">SV</span>
-                <span className="stat-value">{sv}+</span>
-              </div>
-            </div>
-            <div>
-              <div className="stat w">
-                <span className="stat-value">{w}</span>
-                <span className="stat-characteristic">W</span>
-                <GiCrestedHelmet className="stat-icon" size={45} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <Weapons weapons={weapons} />
-        {abilities && <Abilities abilities={abilities} />}
-      </main>
-    </div>
-  );
-};
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import FactionSelector from "./components/FactionSelector";
+import KillTeamSelector from "./components/KillTeamSelector";
+import KillTeamDescription from "./components/KillTeamDescription";
+import FireTeamSelector from "./components/FireTeamSelector";
+import Operatives from "./components/Operatives";
+import Characters from "./components/Characters";
+import type {
+  FactionType,
+  KillTeamType,
+  FireTeamType,
+  OperativeType,
+} from "./types/faction.type";
+import factions from "./__mocks__/faction";
 
 function App() {
-  const charsMarkup = characters.map((char) => {
-    return <Card key={char.id} unit={char} />;
-  });
-  return <div className="container">{charsMarkup}</div>;
+  const [faction, setFaction] = React.useState<FactionType | undefined>();
+  const [killTeam, setKillTeam] = React.useState<KillTeamType | undefined>();
+  const [fireTeam, setFireTeam] = React.useState<FireTeamType | undefined>();
+  const [fireTeam2, setFireTeam2] = React.useState<FireTeamType | undefined>();
+  const [operatives, setOperatives] = React.useState<OperativeType[]>([]);
+  const [operatives2, setOperatives2] = React.useState<OperativeType[]>([]);
+
+  const [showPreview, setShowPreview] = React.useState<OperativeType[]>([]);
+
+  const displayPreview = (op: OperativeType[]) => {
+    if (!op.length) return;
+
+    setShowPreview(op);
+  };
+
+  return (
+    <Container component="main">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Kill Team
+        </Typography>
+        <FactionSelector
+          factions={factions}
+          faction={faction}
+          setFaction={setFaction}
+        />
+        {faction && (
+          <KillTeamSelector
+            faction={faction}
+            killTeam={killTeam}
+            setKillTeam={setKillTeam}
+          />
+        )}
+      </Box>
+      {/* {killTeam && <KillTeamDescription descr={killTeam.killteamcomp} />} */}
+      {killTeam && (
+        <div>
+          <h3>Fire Team</h3>
+          <button
+            onClick={() => displayPreview(operatives)}
+            disabled={!fireTeam || !operatives.length}
+          >
+            Preiew
+          </button>
+          <FireTeamSelector
+            index={1}
+            killTeam={killTeam}
+            fireTeam={fireTeam}
+            setFireTeam={setFireTeam}
+          />
+          {/* {fireTeam && <KillTeamDescription descr={fireTeam.fireteamcomp} />} */}
+          {fireTeam && (
+            <Operatives
+              fireTeam={fireTeam}
+              operatives={operatives}
+              setOperatives={setOperatives}
+            />
+          )}
+          <h3>Fire Team</h3>
+          <button
+            onClick={() => displayPreview(operatives2)}
+            disabled={!fireTeam2 || !operatives2.length}
+          >
+            Preiew
+          </button>
+          <FireTeamSelector
+            index={2}
+            killTeam={killTeam}
+            fireTeam={fireTeam2}
+            setFireTeam={setFireTeam2}
+          />
+          {fireTeam && (
+            <Operatives
+              fireTeam={fireTeam}
+              operatives={operatives2}
+              setOperatives={setOperatives2}
+            />
+          )}
+          {/* {fireTeam2 && <KillTeamDescription descr={fireTeam2.fireteamcomp} />} */}
+        </div>
+      )}
+      {!!showPreview.length && <Characters operatives={operatives2} />}
+    </Container>
+  );
 }
 
 export default App;
